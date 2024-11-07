@@ -1,0 +1,40 @@
+<h1><%= @student.first_name %> <%= @student.last_name %>'s Schedule</h1>
+
+<% if @schedules.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Subject</th>
+        <th>Teacher</th>
+        <th>Classroom</th>
+        <th>Days</th>
+        <th>Start at:</th>
+        <th>Finish at:</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @schedules.each do |schedule| %>
+        <% section = schedule.section %>
+        <tr>
+          <td><%= section.subject.name %></td>
+          <td><%= section.teacher.first_and_last_name %></td>
+          <td><%= section.classroom.name %></td>
+          <td><%= section.days_of_week.join(', ') %></td>
+          <td><%= section.short_start_time %></td>
+          <td><%= section.short_finish_time %></td>
+          <td>
+            <%= link_to 'Remove', student_schedule_path(@student, schedule), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No sections in your schedule.</p>
+<% end %>
+
+<%= link_to 'Add Sections', sections_path(student_id: @student.id) %> |
+<%= link_to 'Back to Student Profile', student_path(@student) %> |
+<%= link_to 'Download Schedule', download_student_schedules_path(@student, format: :pdf), class: 'btn btn-primary' %>
+

@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: %i[show edit update destroy]
+  before_action :set_teacher, only: %i[edit update destroy]
 
   # GET /teachers
   # GET /teachers.json
@@ -9,7 +9,9 @@ class TeachersController < ApplicationController
 
   # GET /teachers/1
   # GET /teachers/1.json
-  def show; end
+  def show
+    @teacher = Teacher.includes(:subjects).find(params[:id])
+  end
 
   # GET /teachers/new
   def new

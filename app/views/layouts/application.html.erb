@@ -10,8 +10,14 @@
   </head>
 
   <body>
-    <%= link_to 'Classes', subjects_path %>
+    <% flash.each do |key, message| %>
+      <div class="alert alert-<%= key %>"><%= message %></div>
+    <% end %>
+    <%= link_to 'Subjects', subjects_path %>
     <%= link_to 'Teachers', teachers_path %>
+    <%= link_to 'Students', students_path %>
+    <%= link_to 'Sections', sections_path %>
+    <%= link_to 'Schedule', student_schedules_path(@current_student) %>
     <br>
     <%= yield %>
   </body>
